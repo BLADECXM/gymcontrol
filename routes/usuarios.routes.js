@@ -47,6 +47,13 @@ router.post('/crear', permitirRoles('Administrador'), async (req, res) => {
 
     try {
         const claveHash = await bcrypt.hash(clave, 10);
+        let codigoUsuario;
+        let existe = true;
+        while (existe) {
+            codigoUsuario = generarCodigoUsuario();
+            const check = await pool.query('SELECT 1 FROM usuarios WHERE codigo_usuario = $1', [codigoUsuario]);
+            existe = check.rows.length > 0;
+        }
         await pool.query(
             `INSERT INTO usuarios (id_rol, codigo_usuario, nombre_completo, correo, clave_hash, telefono, especialidad)
              VALUES ($1, $2, $3, $4, $5, $6, $7)`,
