@@ -52,6 +52,7 @@ router.post('/crear', permitirRoles('Administrador'), async (req, res) => {
              VALUES ($1, $2, $3, $4, $5, $6, $7)`,
             [
                 id_rol,
+                codigoUsuario,
                 nombre_completo.trim(),
                 correo.trim().toLowerCase(),
                 claveHash,
