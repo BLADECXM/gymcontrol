@@ -5,7 +5,14 @@ const session = require('express-session');
 require('dotenv').config();
 
 const app = express();
+app.set('trust proxy', 1);
 const PORT = process.env.PORT || 3000;
+const path = require('path');
+
+//Vercel App
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Configuración del motor de vistas EJS
 app.set('view engine', 'ejs');
@@ -68,10 +75,11 @@ app.get('/', (req, res) => {
     res.redirect('/dashboard');
 });
 
-// Arranque local (en Vercel se exporta app)
-if (require.main === module) {
+// Solo escuchar en puerto local; Vercel maneja el servidor automáticamente
+if (process.env.NODE_ENV !== 'production') {
+    const PORT = process.env.PORT || 3000;
     app.listen(PORT, () => {
-        console.log(`🚀 GymControl corriendo en http://localhost:${PORT}`);
+        console.log(`Servidor corriendo en http://localhost:${PORT}`);
     });
 }
 
