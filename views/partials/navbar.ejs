@@ -10,22 +10,31 @@
 
         <div class="collapse navbar-collapse" id="menuGym">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <% if (usuario && usuario.rol !== 'Cliente') { %>
-                    <li class="nav-item"><a class="nav-link" href="/dashboard">Inicio</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/checkin">Check-in</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/miembros">Miembros</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/pagos">Pagos</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/clases">Clases</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/caja">Caja</a></li>
-                <% } %>
+  <% if (rol === 'Administrador' || rol === 'Recepcionista') { %>
+    <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+    <li class="nav-item"><a class="nav-link" href="/checkin">Check-in</a></li>
+    <li class="nav-item"><a class="nav-link" href="/miembros">Miembros</a></li>
+    <li class="nav-item"><a class="nav-link" href="/pagos">Pagos</a></li>
+    <li class="nav-item"><a class="nav-link" href="/clases">Clases</a></li>
+    <li class="nav-item"><a class="nav-link" href="/caja">Caja</a></li>
+  <% } %>
 
-                <% if (usuario && usuario.rol === 'Administrador') { %>
-                    <li class="nav-item"><a class="nav-link" href="/planes">Planes</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/usuarios">Usuarios</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/reportes">Reportes</a></li>
-                <% } %>
-            </ul>
+  <% if (rol === 'Administrador') { %>
+    <li class="nav-item"><a class="nav-link" href="/planes">Planes</a></li>
+    <li class="nav-item"><a class="nav-link" href="/usuarios">Usuarios</a></li>
+    <li class="nav-item"><a class="nav-link" href="/seguimiento">Seguimiento</a></li>
+    <li class="nav-item"><a class="nav-link" href="/reportes">Reportes</a></li>
+  <% } %>
 
+  <% if (rol === 'Entrenador') { %>
+    <li class="nav-item"><a class="nav-link" href="/clases">Mis Clases</a></li>
+    <li class="nav-item"><a class="nav-link" href="/seguimiento">Seguimiento y Rutinas</a></li>
+  <% } %>
+
+  <% if (rol === 'Cliente') { %>
+    <li class="nav-item"><a class="nav-link" href="/mi-portal">Mi Portal</a></li>
+  <% } %>
+</ul>
             <% if (usuario) { %>
                 <div class="d-flex align-items-center text-white gap-3">
                     <small><i class="bi bi-person-circle"></i> <%= usuario.nombre %> (<%= usuario.rol %>)</small>

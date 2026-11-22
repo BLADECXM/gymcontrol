@@ -67,6 +67,9 @@ app.use('/reportes', reportesRoutes);
 const portalRoutes = require('./routes/portal.routes');
 app.use('/mi-portal', portalRoutes);
 
+const seguimientoRoutes = require('./routes/seguimiento.routes');
+app.use('/seguimiento', seguimientoRoutes);
+
 // Ruta inicial de prueba
 app.get('/', (req, res) => {
     if (!req.session.usuario) {
